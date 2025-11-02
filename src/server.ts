@@ -14,10 +14,7 @@ const transpoter = nodemailer.createTransport({
   auth:{
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false, // ignora erro de certificado
-  },
+  }
 });
 
 app.post("/send", async (req: Request, res: Response) => {
@@ -28,7 +25,6 @@ app.post("/send", async (req: Request, res: Response) => {
       success: false, error: 'Campos obrigatorios não preenchidos'
     })
   }
-
   try {
     await transpoter.sendMail({
       from: `"${nome}" <${process.env.EMAIL_USER}>`,
