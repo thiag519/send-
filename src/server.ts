@@ -8,7 +8,7 @@ import { Resend } from "resend";
 dotenv.config();
 const app = express();
 app.use(cors({
-  origin: 'https://thiag519.github.io/portf-lio-/'
+  origin: '*'
 }));
 app.use(express.json());
 
