@@ -9,8 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const transpoter = nodemailer.createTransport({
-  service: 'gmail',
+const transporter = nodemailer.createTransport({
+   host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // usa SSL
   auth:{
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -34,7 +36,7 @@ app.post("/send", async (req: Request, res: Response) => {
     })
   }
   try {
-    await transpoter.sendMail({
+    await transporter.sendMail({
       from: `"${nome}" <${process.env.EMAIL_USER}>`,
       replyTo: email,
       to: process.env.EMAIL_USER,
