@@ -7,28 +7,16 @@ import { Resend } from "resend";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://thiag519.github.io/portf-lio-/'
+}));
 app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-/*const transporter = nodemailer.createTransport({
-   host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // usa SSL
-  auth:{
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false, // adiciona isso para evitar travar no Render
-  },
-});*/
-
 app.get("/", (req, res) => {
   res.send("API funcionando 🚀");
 });
-
 
 app.post("/send", async (req: Request, res: Response) => {
   const {nome, email, mensagem} = req.body;
