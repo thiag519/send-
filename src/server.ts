@@ -1,7 +1,8 @@
 import express, {Request, Response} from "express";
-import nodemailer from 'nodemailer'; 
+/*import nodemailer from 'nodemailer'; */
 import cors from 'cors';  
 import dotenv from "dotenv";
+import { Resend } from "resend";
 
 
 dotenv.config();
@@ -9,7 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+/*const transporter = nodemailer.createTransport({
    host: "smtp.gmail.com",
   port: 465,
   secure: true, // usa SSL
@@ -20,7 +23,7 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false, // adiciona isso para evitar travar no Render
   },
-});
+});*/
 
 app.get("/", (req, res) => {
   res.send("API funcionando 🚀");
@@ -36,10 +39,10 @@ app.post("/send", async (req: Request, res: Response) => {
     })
   }
   try {
-    await transporter.sendMail({
-      from: `"${nome}" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: `"Portfolio <onboarding@resend.dev>`,
+      to: process.env.EMAIL_USER as string, 
       replyTo: email,
-      to: process.env.EMAIL_USER,
       subject: `Mensagem do portfólio - ${nome}`,
       text: mensagem,    
     });
