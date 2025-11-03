@@ -28,11 +28,12 @@ app.post("/send", async (req: Request, res: Response) => {
   }
   try {
     await resend.emails.send({
-      from: `"Portfolio <onboarding@resend.dev>`,
+      from: `"Portfolio por: ${nome} <onboarding@resend.dev>`,
       to: process.env.EMAIL_USER as string, 
       replyTo: email,
       subject: `Mensagem do portfólio - ${nome}`,
-      text: mensagem,    
+      text: mensagem,   
+      html: `<p>${mensagem}</p>`, 
     });
 
     res.json({success: true, message: 'Email enviado com sucesso!'});
