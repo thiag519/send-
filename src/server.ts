@@ -17,6 +17,11 @@ const transpoter = nodemailer.createTransport({
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("API funcionando 🚀");
+});
+
+
 app.post("/send", async (req: Request, res: Response) => {
   const {nome, email, mensagem} = req.body;
 
